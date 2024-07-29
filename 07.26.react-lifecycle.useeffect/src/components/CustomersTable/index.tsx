@@ -7,8 +7,20 @@ import "./index.css";
 //   suppliers: "suppliers"
 // }
 
+interface Address {
+  phone?: string;
+  city?: string;
+  country?: string;
+}
+
+interface Customer {
+  id: string;
+  companyName: string;
+  address?: Address;
+}
+
 const CustomersTable = () => {
-  const [customers, setCustomers] = useState([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(false);
   const BASE_URL = "https://northwind.vercel.app/api";
 
@@ -26,7 +38,7 @@ const CustomersTable = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     try {
       if (window.confirm("Are u sure ti delete customer??")) {
         const response = await axios.delete(`${BASE_URL}/customers/${id}`);
